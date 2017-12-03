@@ -7,5 +7,5 @@ sed -i "s/dbnamehere/${DB_NAME}/g" /var/www/html/config.php
 sed -i "s/dbhosthere/${DB_HOST}/g" /var/www/html/config.php
 sed -i "s#wwwroothere#${WWWROOT}#g" /var/www/html/config.php
 sed -i "s#dataroothere#${DATAROOT}#g" /var/www/html/config.php
-chown -R 33 "/var/www/html"
+#chown -R 33 "/var/www/html"
 exec gosu root /bin/bash -- /usr/sbin/apache2ctl -D FOREGROUND
