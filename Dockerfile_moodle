@@ -1,6 +1,6 @@
 FROM ubuntu:16.04
 MAINTAINER yzjamm@hotmail.com
-ENV DB_USER DB_PWD DB_NAME DB_HOST WWWROOT DATAROOT
+ENV DB_USER DB_PWD DB_NAME DB_HOST WWWROOT DATAROOT LANG en_US.UTF-8
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client build-essential libgmp3-dev bison flex apache2 libapache2-mod-php7.0 php-common php-gd php-curl php-mail php-mail-mime php-mysql php-pear php-db php-mbstring php-mcrypt php-xml php-xmlrpc php7.0-soap php7.0-zip php7.0-intl vim curl locales&&\
 pear install DB &&\
 apt-get clean &&\
