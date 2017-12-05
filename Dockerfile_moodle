@@ -1,7 +1,7 @@
 FROM ubuntu:16.04
 MAINTAINER yzjamm@hotmail.com
 ENV DB_USER DB_PWD DB_NAME DB_HOST WWWROOT DATAROOT
-RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client build-essential libgmp3-dev bison flex apache2 libapache2-mod-php7.0 php-common php-gd php-curl php-mail php-mail-mime php-mysql php-pear php-db php-mbstring php-mcrypt php-xml php-xmlrpc php7.0-soap php7.0-zip php7.0-intl vim curl&&\
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y mysql-client build-essential libgmp3-dev bison flex apache2 libapache2-mod-php7.0 php-common php-gd php-curl php-mail php-mail-mime php-mysql php-pear php-db php-mbstring php-mcrypt php-xml php-xmlrpc php7.0-soap php7.0-zip php7.0-intl vim curl locales&&\
 pear install DB &&\
 apt-get clean &&\
 rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -10,7 +10,11 @@ RUN GOSU_SHA=5ec5d23079e94aea5f7ed92ee8a1a34bbf64c2d4053dadf383992908a2f9dc8a \
   && curl -sSL -o /usr/local/bin/gosu "https://github.com/tianon/gosu/releases/download/1.9/gosu-$(dpkg --print-architecture)" \
   && chmod +x /usr/local/bin/gosu \
   && echo "$GOSU_SHA  /usr/local/bin/gosu" | sha256sum -c - 
-
+  && sed -i '/en_US.UTF-8/s/^#//g' /etc/locale.gen
+  && sed -i '/zh_CN.GBK/s/^#//g' /etc/locale.gen
+  && sed -i '/zh_CN.UTF-8/s/^#//g' /etc/locale.gen
+  && locale-gen
+  && echo export LC_ALL=\"en_US.UTF-8\" >> /etc/profile
 WORKDIR /var/www/html
 
 RUN mkdir /var/moodledata &&\
